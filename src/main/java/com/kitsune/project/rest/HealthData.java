@@ -1,6 +1,6 @@
 package com.kitsune.project.rest;
 
-import java.util.Date;
+import java.util.ArrayList;
 import java.util.List;
 
 public class HealthData {
@@ -10,18 +10,19 @@ public class HealthData {
     private int sleepTime;
     private String tcmObservation;
 
-    public HealthData(String username, List<Integer> usualSigns, List<Integer> unusualSigns, int sleepTime, String tcmObservation) {
+    public HealthData(String username, int score) {
         this.username = username;
-        this.usualSigns = usualSigns;
-        this.unusualSigns = unusualSigns;
-        this.sleepTime = sleepTime;
-        this.tcmObservation = tcmObservation;
+        this.usualSigns = new ArrayList<>(); // Initialize with an empty list
+        this.unusualSigns = new ArrayList<>(); // Initialize with an empty list
+        this.sleepTime = 0;
+        this.tcmObservation = "Score: " + score;
     }
 
-    public int getScore() {
+    public HealthData getScore() {
         int usualScore = usualSigns.stream().mapToInt(Integer::intValue).sum();
         int unusualScore = -1 * unusualSigns.stream().mapToInt(Integer::intValue).sum();
-        return usualScore + unusualScore;
+        int score = usualScore + unusualScore;
+        return new HealthData(username, score);
     }
 
     public String getUsername() {
@@ -43,5 +44,23 @@ public class HealthData {
     public String getTcmObservation() {
         return tcmObservation;
     }
+    
+    
+    public void setUsualSigns(List<Integer> usualSigns) {
+        this.usualSigns = usualSigns;
+    }
+
+    public void setUnusualSigns(List<Integer> unusualSigns) {
+        this.unusualSigns = unusualSigns;
+    }
+
+    public void setSleepTime(int sleepTime) {
+        this.sleepTime = sleepTime;
+    }
+
+    public void setTcmObservation(String tcmObservation) {
+        this.tcmObservation = tcmObservation;
+    }
+
 }
 

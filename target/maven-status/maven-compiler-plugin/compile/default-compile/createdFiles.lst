@@ -1,0 +1,5 @@
+com/kitsune/project/rest/HealthMonitoringHandler.class
+com/kitsune/project/rest/HealthMonitoringBean.class
+com/kitsune/project/rest/HealthData.class
+com/kitsune/project/rest/HealthMonitoringResource.class
+com/kitsune/project/rest/App.class

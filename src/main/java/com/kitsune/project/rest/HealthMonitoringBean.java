@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+
 public class HealthMonitoringBean {
 
     private String url = "jdbc:postgresql://localhost:5432/fox";
@@ -50,6 +51,7 @@ public class HealthMonitoringBean {
         }
     }
 
+
     public List<HealthData> getScores(String username) {
         List<HealthData> scores = new ArrayList<>();
         try (Connection connection = getConnection()) {
@@ -61,7 +63,11 @@ public class HealthMonitoringBean {
                 List<Integer> unusualSigns = getUnusualSigns(rs.getInt("score"));
                 int sleepTime = rs.getInt("sleep_time");
                 String tcmObservation = getTcmObservation(rs.getDate("date"));
-                HealthData healthData = new HealthData(username, usualSigns, unusualSigns, sleepTime, tcmObservation);
+                HealthData healthData = new HealthData(username, rs.getInt("score"));
+                healthData.setUsualSigns(usualSigns);
+                healthData.setUnusualSigns(unusualSigns);
+                healthData.setSleepTime(sleepTime);
+                healthData.setTcmObservation(tcmObservation);
                 scores.add(healthData);
             }
         } catch (SQLException e) {
